@@ -35,7 +35,7 @@ const Order = () => {
       animate="visible"
       className="container order"
     >
-      <h2>Thank you for your order :)</h2>
+      <h3>Thank you for your order :)</h3>
       <motion.p variants={childVariants}>
         You ordered a <span>{state.base}</span> pizza with:
       </motion.p>
