@@ -127,7 +127,7 @@ li span.active::before {
   margin: 30px 20px;
 }
 .order p {
-  margin: 20px auto;
+  margin: 20px 0;
 }
 .order p > span {
   color: gold;
