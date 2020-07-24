@@ -16,12 +16,18 @@ const Base = () => {
         type: "spring",
       },
     },
+    exit: {
+      x: "-100vw",
+      transition: {
+        ease: "easeInOut",
+      },
+    },
   };
   const nextVariants = {
     hidden: { x: "-100vw" },
     visible: {
       x: 0,
-      transitions: { type: "spring", stiffness: 120 },
+      transition: { type: "spring", stiffness: 120 },
     },
   };
   const buttonVariants = {
@@ -44,6 +50,7 @@ const Base = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
+      exit="exit"
       className="base container"
     >
       <h3>Step 1: Choose Your Base</h3>

@@ -2,6 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 const Home = () => {
+  const containerVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        duration: 1.5,
+      },
+    },
+    exit: {
+      x: "-100vw",
+      transition: {
+        ease: "easeInOut",
+      },
+    },
+  };
   const buttonVariants = {
     hover: {
       scale: 1.1,
@@ -15,9 +33,10 @@ const Home = () => {
   };
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ type: "tween", delay: 0.5, duration: 1.5 }}
+      variants={containerVariants}
+      initial="hidden"
+      exit="exit"
+      animate="visible"
       className="home container"
     >
       <h2>Welcome to Pizza Joint</h2>

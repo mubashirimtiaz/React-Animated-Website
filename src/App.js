@@ -1,10 +1,20 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { Header, Home, Base, Order, Topping, NotFound } from "./components";
+import React, { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import { Routes, Route, useLocation } from "react-router-dom";
+import {
+  Header,
+  Home,
+  Base,
+  Order,
+  Topping,
+  NotFound,
+  Modal,
+} from "./components";
 import GlobalContextProvider from "./contexts/GlobalContext";
-import "./App.css";
 
 function App() {
+  const location = useLocation();
+  const [showModal, setShowModal] = useState(false);
   // const [pizza, setPizza] = useState({ base: "", toppings: [] });
 
   // const addBase = (base) => {
@@ -22,15 +32,26 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <GlobalContextProvider>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="base" element={<Base />}></Route>
-          <Route path="order" element={<Order />}></Route>
-          <Route path="topping" element={<Topping />}></Route>
-          <Route path="*" element={<NotFound />}></Route>
-        </Routes>
-      </GlobalContextProvider>
+      <Modal showModal={showModal} setShowModal={setShowModal} />
+      <AnimatePresence
+        exitBeforeEnter
+        onExitComplete={() => setShowModal(false)}
+      >
+        <GlobalContextProvider>
+          <Routes location={location} key={location.key}>
+            <Route path="/" element={<Home />} />
+            <Route path="base" element={<Base />} />
+            <Route
+              path="order"
+              element={
+                <Order showModal={showModal} setShowModal={setShowModal} />
+              }
+            />
+            <Route path="topping" element={<Topping />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </GlobalContextProvider>
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,9 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { motion } from "framer-motion";
 import { GlobalContext } from "../../contexts/GlobalContext";
 
-const Order = () => {
+const Order = ({ setShowModal }) => {
+  useEffect(() => {
+    setTimeout(() => setShowModal(true), 5000);
+  }, [setShowModal]);
+  // const [showTitle, setShowTitle] = useState(true);
   const { state } = useContext(GlobalContext);
+
   const containerVariants = {
     hidden: {
       x: "100vw",
@@ -17,6 +22,12 @@ const Order = () => {
         damping: 8,
         when: "beforeChildren",
         staggerChildren: 0.4,
+      },
+    },
+    exit: {
+      x: "-100vw",
+      transition: {
+        ease: "easeInOut",
       },
     },
   };
@@ -33,6 +44,7 @@ const Order = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
+      exit="exit"
       className="container order"
     >
       <h3>Thank you for your order :)</h3>
