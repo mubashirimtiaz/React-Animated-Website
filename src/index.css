@@ -150,7 +150,7 @@ li span.active::before {
   background: rgba(0, 0, 0, 0.5);
 }
 .modal {
-  max-width: 400px;
+  max-width: 350px;
   margin: 0 auto;
   padding: 40px 20px;
   background: white;
