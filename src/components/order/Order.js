@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
+import { GlobalContext } from "../../contexts/GlobalContext";
 
-const Order = ({ pizza }) => {
+const Order = () => {
+  const { state } = useContext(GlobalContext);
   const containerVariants = {
     hidden: {
       x: "100vw",
@@ -35,10 +37,10 @@ const Order = ({ pizza }) => {
     >
       <h2>Thank you for your order :)</h2>
       <motion.p variants={childVariants}>
-        You ordered a <span>{pizza.base}</span> pizza with:
+        You ordered a <span>{state.base}</span> pizza with:
       </motion.p>
       <motion.div variants={childVariants}>
-        {pizza.toppings.map((topping) => (
+        {state.toppings.map((topping) => (
           <div key={topping}>{topping}</div>
         ))}
       </motion.div>

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { GlobalContext } from "../../contexts/GlobalContext";
 
-const Topping = ({ addTopping, pizza }) => {
+const Topping = () => {
+  const { state, dispatch } = useContext(GlobalContext);
   const containerVariants = {
     hidden: {
       x: "100vw",
@@ -12,6 +14,17 @@ const Topping = ({ addTopping, pizza }) => {
       transition: {
         delay: 0.5,
         type: "spring",
+      },
+    },
+  };
+  const buttonVariants = {
+    hover: {
+      scale: 1.1,
+      textShadow: "0px 0px 8px rgb(255,255,255)",
+      boxShadow: "0px 0px 8px rgb(255,255,255)",
+      transition: {
+        duration: 0.3,
+        yoyo: Infinity,
       },
     },
   };
@@ -27,7 +40,9 @@ const Topping = ({ addTopping, pizza }) => {
     "extra cheese",
     "tomatoes",
   ];
-
+  const handleClick = (topping) => {
+    dispatch({ type: "ADD_TOPPING", payload: topping });
+  };
   return (
     <motion.div
       variants={containerVariants}
@@ -38,29 +53,23 @@ const Topping = ({ addTopping, pizza }) => {
       <h3>Step 2: Choose Toppings</h3>
       <ul>
         {toppings.map((topping) => {
-          let spanClass = pizza.toppings.includes(topping) ? "active" : "";
+          let spanClass = state.toppings.includes(topping) ? "active" : "";
           return (
             <motion.li
               whileHover={{ scale: 1.3, originX: 0, color: "#f8e120" }}
               transition={{ type: "spring", stiffness: 200 }}
               key={topping}
-              onClick={() => addTopping(topping)}
+              onClick={() => handleClick(topping)}
             >
               <span className={spanClass}>{topping}</span>
             </motion.li>
           );
         })}
       </ul>
-      {pizza.toppings.length ? (
+      {state.toppings.length ? (
         <motion.div variants={orderVariants}>
           <Link to="/order">
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                textShadow: "0px 0px 8px rgb(255,255,255)",
-                boxShadow: "0px 0px 8px rgb(255,255,255)",
-              }}
-            >
+            <motion.button variants={buttonVariants} whileHover="hover">
               Order
             </motion.button>
           </Link>
